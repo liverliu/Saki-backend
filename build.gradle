@@ -7,7 +7,7 @@ apply plugin: 'jetty'
 apply plugin: 'idea'
 
 war {
-    archiveName = 'saki-backend.war'
+    archiveName = 'SakiBackend.war'
 }
 
 repositories {

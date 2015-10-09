@@ -1,9 +1,5 @@
 package com.saki.backend.utils;
 
-import com.betterwood.devine.core.order.dto.orderInfo.OrderInfoDB;
-import com.google.common.collect.Sets;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,16 +51,16 @@ public class ConstantUtil {
     public static int getInt(String key, int defaultCount) {
     	return StringUtil.toInt(constant.getProperty(key, Integer.toString(defaultCount)));
     }
+
     public static boolean getBool(String key) {
         return Boolean.parseBoolean(constant.getProperty(key, "false"));
     }
-
 
     public static final String SELECT_COUNT = "selectCount";
     public static final String SELECT = "select";
     public static final String SELECT_BY_ID = "selectById";
     public static final String SELECT_PAGE = "selectPage";
-    public static final String SELECT_PAGE_COUNT = "selectPageTotal";
+    public static final String SELECT_PAGE_COUNT = "selectPageCount";
 
     public static final String INSERT = "insert";
     public static final String UPDATE = "update";

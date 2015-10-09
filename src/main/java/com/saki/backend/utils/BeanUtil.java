@@ -1,9 +1,8 @@
 package com.saki.backend.utils;
 
+import com.google.common.collect.Maps;
 import org.apache.commons.beanutils.BeanMap;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -16,7 +15,7 @@ public class BeanUtil {
     }
 
     public static Map<String, Object> toMap(Object... objs) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = Maps.newHashMap();
         for (Object object : objs) {
             if (object != null) {
                 map.putAll(toMap(object));
@@ -26,25 +25,13 @@ public class BeanUtil {
     }
 
     public static Map<String, Object> toMap(Object obj) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        if (obj == null) {
-            return map;
-        }
-        BeanMap beanMap = new BeanMap(obj);
-        Iterator<String> it = beanMap.keyIterator();
-        while (it.hasNext()) {
-            String name = it.next();
-            Object value = beanMap.get(name);
-            // 去除类名
-            if (value != null && !name.equals("class")) {
-                if(value instanceof String) {
-                    if(!StringUtil.isEmpty((String) value)) {
-                        map.put(name, value);
-                    }
-                } else {
-                    map.put(name, value);
-                }
-            }
+        Map<String, Object> map = Maps.newHashMap();
+        if (obj != null) {
+            new BeanMap(obj).entrySet().stream()
+                    .filter(e -> !e.getKey().toString().equals("class")) //去除类名
+                    .filter(e -> e.getValue() != null) //去null
+                    .filter(e -> !e.getValue().toString().equals("")) //去空串
+                    .forEach(e -> map.put((String) e.getKey(), e.getValue()));
         }
         return map;
     }
