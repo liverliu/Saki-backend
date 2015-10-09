@@ -11,8 +11,9 @@ war {
 }
 
 repositories {
-    mavenCentral()
+    maven{ url 'http://maven.oschina.net/content/groups/public/'}
     mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
