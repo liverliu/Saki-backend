@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/aop
+    classpath:/org/springframework/aop/config/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/beans
+    classpath:/org/springframework/beans/factory/xml/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/tx
+    classpath:/org/springframework/transaction/config/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/context
+    classpath:/org/springframework/context/config/spring-context-4.0.xsd
+    http://www.springframework.org/schema/mvc
+    classpath:/org/springframework/web/servlet/config/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/task
+    classpath:/org/springframework/scheduling/config/spring-task-4.0.xsd">
+
+    <!-- Activates annotation-based bean configuration -->
+    <context:annotation-config/>
+
+    <!-- scan -->
+    <context:component-scan base-package="com.saki.backend"/>
+
+    <!-- scheduled task -->
+    <task:annotation-driven/>
+
+    <!-- properties-->
+    <context:property-placeholder location="classpath:/properties/*.properties"/>
+
+        <!-- database dataSource-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${c3p0.driverClassName}" />
+        <property name="jdbcUrl" value="${c3p0.url}" />
+        <property name="user" value="${c3p0.username}" />
+        <property name="password" value="${c3p0.password}" />
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}" />   <!-- 连接最长空闲时间，超过后被释放，单位秒 -->
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}" /> <!-- 最大值 -->
+        <property name="minPoolSize" value="${c3p0.minPoolSize}" /> <!-- 最小值 -->
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/> <!--初始大小 -->
+        <property name="preferredTestQuery" value="${c3p0.preferredTestQuery}"/>
+        <property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}"/>
+        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>
+        <property name="maxStatements" value="${c3p0.maxStatements}"/>
+        <property name="maxStatementsPerConnection" value="${c3p0.maxStatementsPerConnection}"/>
+    </bean>
+
+    <!-- sqlSession -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"></property>
+        <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"></property>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+
+</beans>
