@@ -40,5 +40,6 @@ public class SakiInitializer extends AbstractAnnotationConfigDispatcherServletIn
         servletContext.setInitParameter( "log4jConfigLocation" , "classpath:/properties/log4j.properties" );
         Log4jConfigListener log4jListener = new Log4jConfigListener();
         servletContext.addListener(log4jListener);
+
     }
 }

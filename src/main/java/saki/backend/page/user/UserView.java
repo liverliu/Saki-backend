@@ -26,7 +26,7 @@ import java.util.Objects;
  * Created by liverliu on 15/10/31.
  */
 @Controller
-@RequestMapping("user")
+@RequestMapping("userview")
 @Scope("prototype")
 public class UserView extends AbstractPage {
 

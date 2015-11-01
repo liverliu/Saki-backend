@@ -10,7 +10,7 @@ apply plugin: 'org.akhikhl.gretty'
 apply plugin: 'idea'
 
 war {
-    archiveName = 'SakiBackend.war'
+    archiveName = 'saki.war'
 }
 
 repositories {
@@ -79,5 +79,6 @@ buildscript {
 
 gretty {
     port = 9999
+    contextPath = ''
     servletContainer = 'jetty9'
 }

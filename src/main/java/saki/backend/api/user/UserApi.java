@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Controller
 @Scope("prototype")
-@RequestMapping("/userapi")
+@RequestMapping("/user")
 public class UserApi extends BaseApi {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserApi.class);

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
@@ -21,23 +22,12 @@ public class ConstantUtil {
     private static Properties constant = new Properties();
 
     static {
-        InputStreamReader is = null;
         try {
-            //read properties
-            is = new InputStreamReader(ConstantUtil.class.getResourceAsStream("/properties/constant.properties"), "UTF-8");
-            if (is != null) {
-                constant.load(is);
-            }
+            InputStreamReader is = new InputStreamReader(ConstantUtil.class.getResourceAsStream("/properties/constant.properties"), "UTF-8");
+            constant.load(is);
+            is.close();
         } catch (IOException ex) {
             LOGGER.error("读取constant.properties出错", ex);
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException ex) {
-                    LOGGER.error("读取constant.properties出错", ex);
-                }
-            }
         }
     }
     public static String getProperty(String key) {
@@ -59,8 +49,6 @@ public class ConstantUtil {
     public static final String SELECT_COUNT = "selectCount";
     public static final String SELECT = "select";
     public static final String SELECT_BY_ID = "selectById";
-    public static final String SELECT_PAGE = "selectPage";
-    public static final String SELECT_PAGE_COUNT = "selectPageCount";
 
     public static final String INSERT = "insert";
     public static final String UPDATE = "update";
