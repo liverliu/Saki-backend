@@ -5,7 +5,8 @@ defaultTasks 'clean', 'build', 'copyLibs', 'copyShell'
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'jetty'
+//apply plugin: 'jetty' //too old, Jetty6, use gretty
+apply plugin: 'org.akhikhl.gretty'
 apply plugin: 'idea'
 
 war {
@@ -29,6 +30,7 @@ dependencies {
             'org.springframework:spring-web:4.2.1.RELEASE',
             'org.springframework:spring-webmvc:4.2.1.RELEASE',
             'org.springframework.data:spring-data-commons:1.11.0.RELEASE',
+            'javax.servlet:javax.servlet-api:3.1.0',
             'c3p0:c3p0:0.9.1.2',
             'org.mybatis:mybatis:3.3.0',
             'org.mybatis:mybatis-spring:1.2.3',
@@ -62,4 +64,20 @@ task copyShell(type: Copy) {
     from './'
     include '*.sh'
     into 'build'
+}
+
+//Gretty
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
+
+gretty {
+    port = 9999
+    servletContainer = 'jetty9'
 }

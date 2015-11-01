@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Controller
 @Scope("prototype")
-@RequestMapping("/user")
+@RequestMapping("/userapi")
 public class UserApi extends BaseApi {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserApi.class);
@@ -48,6 +48,10 @@ public class UserApi extends BaseApi {
             }
             if(!StringUtil.isAlphaOrNum(password)) {
                 throw new ApiException("密码包含非法字符");
+            }
+            resp = userService.find(username);
+            if(resp != null) {
+                throw new ApiException("用户命已存在");
             }
             resp = userService.addUser(username, password, nickname);
         } catch (BaseException ex) {

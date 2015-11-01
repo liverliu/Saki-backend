@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import saki.backend.exception.ServiceException;
 
 import java.sql.Timestamp;
 
@@ -34,6 +35,11 @@ public class UserService {
         long now = System.currentTimeMillis();
         user.setTsUpdate(new Timestamp(now));
         return user;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public User find(String username) {
+        return userReadDao.selectOne(new User(username));
     }
 
 }

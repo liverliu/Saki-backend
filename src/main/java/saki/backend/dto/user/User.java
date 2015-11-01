@@ -20,6 +20,10 @@ public class User {
         this.nickname = nickname;
     }
 
+    public User(String username) {
+        this.username = username;
+    }
+
     public User() {
 
     }

@@ -1,15 +1,23 @@
-package saki.backend.api;
+package saki.backend.page;
 
 import saki.backend.exception.ApiException;
 import saki.backend.utils.StringUtil;
 
 import java.util.Map;
 
+/**
+ * Created by liverliu on 15/10/31.
+ */
+public abstract class AbstractPage {
 
-public abstract class BaseApi {
+    protected static final String ERROR_PAGE = "/error";
 
-    public int errcode = 0;
-    public String errmsg = "success";
+    //Register
+    protected static final String REGISTER = "/user/register";
+    protected static final String REGISTER_SUCCESS = "/user/register_success";
+
+    protected int errcode = 0;
+    protected String errmsg = "success";
 
     protected void checkNotEmptyParams(Map<String, String> params) {
         params.forEach((k, v) -> {

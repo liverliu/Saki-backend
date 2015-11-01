@@ -42,7 +42,7 @@
         select count(Id) from <include refid="table name"/>
     </select>
 
-    <select id="select" resultMap="settlement.settlement" parameterType="java.util.Map">
+    <select id="select" resultMap="user.user" parameterType="java.util.Map">
         select
         <include refid="table column"/>
         from
@@ -50,7 +50,7 @@
         <include refid="where cause"/>
     </select>
 
-    <select id="selectById" resultMap="settlement.settlement" parameterType="java.lang.String">
+    <select id="selectById" resultMap="user.user" parameterType="java.lang.String">
         select
         <include refid="table column"/>
         from
