@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by shijianliu on 10/9/15.
  */
-@Controller
+@RestController
 @Scope("prototype")
 @RequestMapping("/user")
 public class UserApi extends BaseApi {
@@ -32,7 +32,6 @@ public class UserApi extends BaseApi {
     private UserService userService;
 
     @RequestMapping(value = "/register", method = {RequestMethod.PUT, RequestMethod.GET})
-    @ResponseBody
     public Result<User> Register(@RequestParam(required = false) String username,
                                  @RequestParam(required = false) String password,
                                  @RequestParam(required = false) String nickname) {
@@ -67,24 +66,22 @@ public class UserApi extends BaseApi {
     }
 
     @RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
-    @ResponseBody
     public Result<String> login(@RequestParam(required = false) String username,
                                 @RequestParam(required = false) String password) {
         return null;
     }
 
+    /*
     @RequestMapping(value = "/info/${username}", method = RequestMethod.GET)
-    @ResponseBody
     public Result<User> info(@PathVariable String username) {
         return null;
     }
 
     @RequestMapping(value = "/list/${page}", method = RequestMethod.GET)
-    @ResponseBody
     public Result<List<User>> list(@PathVariable Integer page) {
         return null;
     }
-
+    */
 
     @Override
     protected <T> void checkOtherParams(T... params) {

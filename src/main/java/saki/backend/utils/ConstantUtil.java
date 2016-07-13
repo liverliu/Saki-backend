@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
@@ -23,7 +22,7 @@ public class ConstantUtil {
 
     static {
         try {
-            InputStreamReader is = new InputStreamReader(ConstantUtil.class.getResourceAsStream("/properties/constant.properties"), "UTF-8");
+            InputStreamReader is = new InputStreamReader(ConstantUtil.class.getResourceAsStream("/constant.properties"), "UTF-8");
             constant.load(is);
             is.close();
         } catch (IOException ex) {

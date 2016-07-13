@@ -12,9 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /**
  * Created by liverliu on 15/10/31.
  */
+/*
 @Configuration
 @EnableWebMvc
-@ComponentScan("saki.backend")
 public class SakiServletConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -28,3 +28,4 @@ public class SakiServletConfig extends WebMvcConfigurerAdapter {
                 .setViewName("view/pages/welcome.html");
     }
 }
+*/

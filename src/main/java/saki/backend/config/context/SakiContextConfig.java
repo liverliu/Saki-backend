@@ -9,26 +9,31 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 /**
  * Created by liverliu on 15/10/31.
  */
 @Configuration
-@ComponentScan("saki.backend")
-@EnableScheduling
-@EnableTransactionManagement
-@PropertySource("classpath:/properties/c3p0.properties")
+@PropertySource("classpath:/c3p0.properties")
 public class SakiContextConfig {
 
     @Autowired
     private Environment env;
 
-    @Bean(destroyMethod = "close")
+    @Bean
+    public Filter characterEncodingFilter() {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+        return characterEncodingFilter;
+    }
+
+    @Bean
     public DataSource dataSource() throws Exception {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         dataSource.setDriverClass(env.getProperty("c3p0.driverClassName"));
