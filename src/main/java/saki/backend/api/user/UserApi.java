@@ -71,17 +71,16 @@ public class UserApi extends BaseApi {
         return null;
     }
 
-    /*
-    @RequestMapping(value = "/info/${username}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/info/{username}", method = RequestMethod.GET)
     public Result<User> info(@PathVariable String username) {
-        return null;
+        return new Result<>(0, "success", new User(username, "abc", "abc"));
     }
 
-    @RequestMapping(value = "/list/${page}", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/{page}", method = RequestMethod.GET)
     public Result<List<User>> list(@PathVariable Integer page) {
         return null;
     }
-    */
 
     @Override
     protected <T> void checkOtherParams(T... params) {

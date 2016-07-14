@@ -1,4 +1,4 @@
-package saki.backend.config.context;
+package saki.backend.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @PropertySource("classpath:/c3p0.properties")
-public class SakiContextConfig {
+public class BeanConfig {
 
     @Autowired
     private Environment env;

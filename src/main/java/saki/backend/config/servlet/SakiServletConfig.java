@@ -3,19 +3,20 @@ package saki.backend.config.servlet;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 
 /**
  * Created by liverliu on 15/10/31.
  */
-/*
 @Configuration
 @EnableWebMvc
 public class SakiServletConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -28,4 +29,3 @@ public class SakiServletConfig extends WebMvcConfigurerAdapter {
                 .setViewName("view/pages/welcome.html");
     }
 }
-*/
