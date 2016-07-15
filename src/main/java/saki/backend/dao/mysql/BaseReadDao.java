@@ -1,5 +1,7 @@
 package saki.backend.dao.mysql;
 
+import saki.backend.annotation.LogExeTime;
+import saki.backend.annotation.LogInvoke;
 import saki.backend.exception.DaoException;
 import saki.backend.utils.BeanUtil;
 import saki.backend.utils.ConstantUtil;
@@ -32,106 +34,85 @@ public abstract class BaseReadDao<T> {
         return "";
     }
 
+    @LogExeTime
+    @LogInvoke(params = {"query"})
     public <V extends T> V selectOne(T query) {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.SELECT;
         try {
             Map<String, Object> params = BeanUtil.toMap(query);
-            LOGGER.info(sqlExecutor + ":" + params.toString());
             return sqlSessionTemplate.selectOne(sqlExecutor, params);
         } catch (Exception ex) {
             throw new DaoException(String.format("查询一条记录出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 
+    @LogExeTime
+    @LogInvoke(params = {"id"})
     public <V extends T> V selectById(String id) {
-        long start = System.currentTimeMillis();
         Assert.notNull(id);
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.SELECT_BY_ID;
         try {
-            LOGGER.info(sqlExecutor + ":" + id);
             return sqlSessionTemplate.selectOne(sqlExecutor, id);
         } catch (Exception ex) {
             throw new DaoException(String.format("根据ID查询对象出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 
+    @LogExeTime
+    @LogInvoke(params = {"query"})
     public <V extends T> List<V> selectList(T query) {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.SELECT;
         try {
             Map<String, Object> params = BeanUtil.toMap(query);
-            LOGGER.info(sqlExecutor + ":" + params.toString());
             return sqlSessionTemplate.selectList(sqlExecutor, params);
         } catch (Exception ex) {
             throw new DaoException(String.format("查询对象列表出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 
+    @LogExeTime
+    @LogInvoke
     public <V extends T> List<V> selectList() {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.SELECT;
         try {
-            LOGGER.info(sqlExecutor);
             return sqlSessionTemplate.selectList(sqlExecutor);
         } catch (Exception ex) {
             throw new DaoException(String.format("查询所有对象列表出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 
+    @LogExeTime
+    @LogInvoke(params = {"query", "pageable"})
     public <V extends T> List<V> selectList(T query, Pageable pageable) {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.SELECT;
         try {
             Map<String, Object> params = getParams(query, pageable);
-            LOGGER.info(sqlExecutor + ":" + params.toString());
             return sqlSessionTemplate.selectList(sqlExecutor, params);
         } catch (Exception ex) {
             throw new DaoException(String.format("根据分页对象查询列表出错！语句:%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 
+    @LogExeTime
+    @LogInvoke
     public int selectCount() {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.SELECT_COUNT;
         try {
-            LOGGER.info(sqlExecutor);
             return sqlSessionTemplate.selectOne(sqlExecutor);
         } catch (Exception ex) {
             throw new DaoException(String.format("查询对象总数出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 
+    @LogExeTime
+    @LogInvoke(params = {"query"})
     public int selectCount(T query) {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.SELECT_COUNT;
         try {
             Map<String, Object> params = BeanUtil.toMap(query);
-            LOGGER.info(sqlExecutor + ":" + params.toString());
             return sqlSessionTemplate.selectOne(sqlExecutor, params);
         } catch (Exception ex) {
             throw new DaoException(String.format("查询对象总数出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 

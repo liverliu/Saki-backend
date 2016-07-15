@@ -1,4 +1,4 @@
-package saki.backend.config.servlet;
+package saki.backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;

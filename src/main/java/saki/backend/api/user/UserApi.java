@@ -1,6 +1,8 @@
 package saki.backend.api.user;
 
 import com.google.common.collect.Maps;
+import saki.backend.annotation.LogExeTime;
+import saki.backend.annotation.LogInvoke;
 import saki.backend.api.BaseApi;
 import saki.backend.dto.user.User;
 import saki.backend.entity.Result;
@@ -12,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,8 @@ public class UserApi extends BaseApi {
     @Autowired
     private UserService userService;
 
+    @LogExeTime
+    @LogInvoke(params = {"username", "password", "nickname"})
     @RequestMapping(value = "/register", method = {RequestMethod.PUT, RequestMethod.GET})
     public Result<User> Register(@RequestParam(required = false) String username,
                                  @RequestParam(required = false) String password,

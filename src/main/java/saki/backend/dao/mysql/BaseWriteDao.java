@@ -1,5 +1,7 @@
 package saki.backend.dao.mysql;
 
+import saki.backend.annotation.LogExeTime;
+import saki.backend.annotation.LogInvoke;
 import saki.backend.exception.DaoException;
 import saki.backend.utils.BeanUtil;
 import saki.backend.utils.ConstantUtil;
@@ -28,33 +30,27 @@ public abstract class BaseWriteDao<T>{
         return "";
     }
 
+    @LogExeTime
+    @LogInvoke(params = {"entity"})
     public int insert(T entity) {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.INSERT;
         try {
             Map<String, Object> params = BeanUtil.toMap(entity);
-            LOGGER.info(sqlExecutor + ":" + params.toString());
             return sqlSessionTemplate.insert(sqlExecutor, params);
         } catch (Exception ex) {
             throw new DaoException(String.format("添加对象出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 
+    @LogExeTime
+    @LogInvoke(params = {"entity"})
     public int update(T entity) {
-        long start = System.currentTimeMillis();
         String sqlExecutor = sqlNameSpace + DOT + ConstantUtil.UPDATE;
         try {
             Map<String, Object> params = BeanUtil.toMap(entity);
-            LOGGER.info(sqlExecutor + ":" + params.toString());
             return sqlSessionTemplate.update(sqlExecutor, params);
         } catch (Exception ex) {
             throw new DaoException(String.format("更新对象出错！语句：%s", sqlExecutor), ex);
-        } finally {
-            long end = System.currentTimeMillis();
-            LOGGER.info("use time:" + (end - start) + "ms");
         }
     }
 

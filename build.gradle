@@ -60,6 +60,9 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-log4j:1.3.6.RELEASE') {
         exclude module: "logback-classic"
     }
+    compile('org.springframework.boot:spring-boot-starter-aop:1.3.6.RELEASE') {
+        exclude module: "logback-classic"
+    }
 
     runtime 'mysql:mysql-connector-java:5.1.36'
 
