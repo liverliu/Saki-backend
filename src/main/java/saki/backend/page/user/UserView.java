@@ -60,11 +60,11 @@ public class UserView extends AbstractPage {
             return REGISTER;
         } catch (BaseException ex) {
             LOGGER.error("BaseException:", ex);
-            errcode = 0;
+            errcode = -1;
             errmsg = ex.getMessage();
         } catch (Exception ex) {
             LOGGER.error("OtherException:", ex);
-            errcode = 0;
+            errcode = -1;
             errmsg = ex.getMessage();
         } finally {
             model.addAttribute("errcode", errcode);

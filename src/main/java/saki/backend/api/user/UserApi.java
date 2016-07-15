@@ -1,6 +1,7 @@
 package saki.backend.api.user;
 
 import com.google.common.collect.Maps;
+import saki.backend.annotation.CheckEmpty;
 import saki.backend.annotation.LogExeTime;
 import saki.backend.annotation.LogInvoke;
 import saki.backend.api.BaseApi;
@@ -34,17 +35,13 @@ public class UserApi extends BaseApi {
 
     @LogExeTime
     @LogInvoke(params = {"username", "password", "nickname"})
+    @CheckEmpty(params = {"username", "password", "nickname"})
     @RequestMapping(value = "/register", method = {RequestMethod.PUT, RequestMethod.GET})
     public Result<User> Register(@RequestParam(required = false) String username,
                                  @RequestParam(required = false) String password,
                                  @RequestParam(required = false) String nickname) {
         User resp = null;
         try {
-            Map<String, String> params = Maps.newHashMap();
-            params.put("username", username);
-            params.put("password", password);
-            params.put("nickname", nickname);
-            checkNotEmptyParams(params);
             if(!StringUtil.isAlphaOrNum(username)) {
                 throw new ApiException("用户名包含非法字符");
             }
